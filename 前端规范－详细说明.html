@@ -1,0 +1,388 @@
+<!--
+	前端规范－V1.1－详细说明
+
+		页面开发规范
+
+			注意:
+				页面效果不能因图片未能加载而发生布局错乱。
+
+			注意:
+				非极端情况,Javascript代码不参与页面首次加载时的页面样式布局,即在用户网速极差Javascript代码加载失败时页面依然不会因为Javascript未能加载而布局错乱。
+
+		资源命名规范
+
+			注意:
+				所有被引用的资源文件采用英文小写,不要使用数字开头,纯数字,中文命名。
+
+		资源使用规范
+
+			注意:
+				不需要的资源不引用,只用库中10%内容以下的库不引用。请在Chrome Audits里查看相关信息。
+
+			注意:(移动端ONLY)
+				所有图片请用PS压缩为PNG-8格式,并需要保证单张图片大小不得超过150KB,单张页面资源引用大小不得超过2MB。
+
+			注意:(移动端ONLY)
+				如果需要引用外部工具库,仅限zepto.min.js。
+
+			注意:
+				本地环境请用开发版的文件,不要上传版本库,版本库里请上传为压缩后的文件。
+
+		HTML标签命名规范
+
+			注意:
+				所有标签采用英文小写,属性值用双引号包含。
+
+		HTML标签使用规范
+
+			注意:
+				一行只能放一个标签,如果是标签包含文字和标签,标签和文字都单独占行,如果是只包含文字的标签,则在本行开始并闭合。
+			如:
+				<p>
+					paragraph goes here...
+					<span>highlight words</span>
+					paragraph goes on...
+					<br />
+					<hr />
+					paragraph goes on...
+				</p>
+
+			注意:
+				过时标签,用作定义样式的标签和属性请勿使用。
+			如:
+				<font>,<center>,<big>,<small>,align
+
+			注意:
+				所有标签请务必关闭，自闭合标签请在标签属性值对结束后与标签结束处前之间加上一个空格。
+			如:
+				<meta />,<link />,<br />,<hr />,<input />,<img src="" />
+
+			注意:
+				每个标签请务必语义化。
+			如:
+				<p>段落,单一段级展现形式的文字区域或文字加小图标的图文区域;
+				<h1><h2><h3>标题,单一标题级展现形式的文字区域或文字加小图标的图文区域;
+				<i>原义italic斜体转义为图标icon,所有小图标用display为block的i标签写入。
+
+			注意:
+				标签内不允许有空值属性或缩写属性,非必要属性请勿写入。
+			如:
+				如果a标签没有href属性,不要出现<a href=""></a>,应使用<a></a>;
+				如果type为radio的input标签拥有checked属性,不要缩写为<input type="radio" checked />,应使用<input type="radio" checked="checked" />。
+
+			注意:
+				非script标签内不允许写入javascript代码。
+			如:
+				如果a标签不跳转,不要使用<a href="javascript:void(0);"></a>,应使用<a></a>;
+				如果a标签有onclick等事件,不要使用<a id="anchor" onclick="functionName()"></a>,应在外联javascript中用document.getElementById("anchor").onclick=function(){};或其他选择器选择方式为标签绑定事件。
+
+			注意:
+				标签内不允许写行内样式代码。
+
+			注意:
+				减少层级嵌套,可以两级嵌套就不要三级嵌套。
+			如:
+				一个列表完全可以用
+				<ul>
+					<li></li>
+				</ul>
+				布局,如果不是特殊情况,不要无谓再在外层嵌套一级div,ul可以display为block使ul拥有和div同样的的css样式。
+
+				一组链接列表完全可以用
+				<div>
+					<a></a>
+				</div>
+				布局,如果不是特殊情况,不要无谓再在外层用ul,li嵌套,a可以display为block或inline-block拥有和li同样的css样式。
+
+		CSS命名规范
+
+			注意:
+				骆驼命名法,请勿使用拼音命名。
+
+			注意:
+				css3动画名称大写开头。
+
+		CSS使用规范
+
+			注意:
+				css内不允许写获取页面信息数据的计算代码。
+
+			注意:
+				引入cssreset以重置user agent的标签样式默认值。
+
+			注意:
+				选择器务必层级嵌套以区分全局样式和局部样式避免与其他外部引用样式发生同名冲突。
+
+			注意:
+				选择器样式渲染优先级:行内样式>选择器内部样式属性值!important>#id选择器样式>.class选择器样式>[attribute="value"]特性选择器样式>nth-child等css3选择器样式>label标签选择器样式(注:label是标签的意思而不是特指label标签)。
+
+			注意:(PC端ONLY,移动端所有浏览器几乎都是webkit内核)
+				请勿使用"-o-","-moz-","-webkit-","_","*"等浏览器独有样式做兼容。
+
+			注意:
+				左括号换行,类名与其属性间用一个tab对齐,属性结束后换行右括号。
+			如:
+				label{
+					attribute:value;
+				}
+
+			注意:
+				样式属性与属性值间冒号左右不要加空格,每一属性值对结束后必须用分号结束并换行。
+			如:
+				attribute:value;//支持
+				attribute : value;//摒弃
+
+			注意:
+				不同选择器间样式不要互相覆盖作交叉替代关系,其关系只能为基础附加关系或兄弟关系。
+			如:
+				.icon{
+					display:block;
+					background-repeat:no-repeat;
+				}
+				.iconA{
+					background-image:url(path1);
+				}
+				.iconB{
+					background-image:url(path2);
+				}
+				.icon1{
+					width:10px;
+					height:10px;
+					background-position:0 0;
+				}
+				.icon2{
+					width:20px;
+					height:20px;
+					background-position:-10px 0;
+				}
+				.wrongIcon{
+					background-repeat:repeat;
+				}
+			释义:
+				.iconA,.iconB,.icon1,.icon2与.icon间关系为基础附加;
+				.iconA与.iconB及.icon1与.icon2间关系为兄弟。
+				如果一个标签中同时存在.icon和.wrongIcon,当.wrongIcon在.icon后时,.wrongIcon覆盖了.icon的background-repeat属性,类似这样的做法使两个选择器间形成了交叉替代关系,是需要摒弃的
+
+			注意:
+				style标签内样式注释只能用/**/,css文件内样式可用/**/和//。style标签中的*会被浏览器错误解析,并且style标签不利于解耦分离,请不要在html中使用style标签。
+
+			注意:
+				标签与属性,属性与属性,属性与浏览器占位间互相依赖关系。
+			如:
+				行级元素无height,margin,padding;
+				ie7行级元素不浮动字间距拉长;
+				块级元素没有vertical-align,无height或overflow内部标签内容显示却不占位;
+				部分标签如img火狐当其没有图片地址时不浮动不占位;
+				非定位标签无z-index;
+				非浮动元素无margin-left,margin-right等。
+
+			注意:
+				使用css3缩写属性时请补全所有参数值,部分属性所有浏览器浏览器默认拥有的请勿再引入,否则将导致样式不可用。
+			如:
+				animation:aniName 0 ease 0 1 normal running none;
+				box-shadow:0 0 0 0 rgba(0, 0, 0, 0);//最后一个属性outset||inset为所有现代浏览器默认引入其默认值outset,写入补全反而会使样式不可用
+
+			注意:
+				url(path)括号内不加引号。
+			如:
+				backgorund-image:url(images/img.png);
+
+			注意:
+				rgb(0, 0, 0);//使用rgb颜色时逗号与色值间务必使用一个空格隔开。
+
+			注意:
+				image图片资源成组或者多数不虚修改的,请css sprite减少对资源的请求。
+
+			常用样式属性设置顺序:
+				position,top,right,bottom,right,float,margin,padding,z-index//标签位置
+				display,width,height,overflow,resize//标签尺寸
+				font-size,font-weight,font-family,line-height,color//文字相关
+				text-decoration,text-align,text-indent//段落样式
+				content//行级伪元素
+				background-image,background-position,background-repeat,background-size//背景样式
+				outline,border,border-radius//边框样式
+				cursor//鼠标样式
+				-webkit-tap-highlight-color//移动端样式
+				visibility,filter,opacity//效果及滤镜渲染
+				text-shadow,box-shadow,animation,transform//IE9+内核及webkit内核属性
+				请遵照包括并不限于以上的属性顺序设置规范,颠倒使用部分将会由于属性间的相互依赖关系导致部分属性失效。
+		
+		Javascript命名规范
+
+			注意:
+				类名帕斯卡命名法,函数、构造方法、原型方法骆驼命名法,私有方法下划线开头并以骆驼命名法,DOM对象及Javascript对象匈牙利命名法,常量全大写(单词间用下划线分隔)。多个var声明时用逗号隔开并换行。原型方法作为一个单体以方便有组织地进行拓展。
+
+			如:
+				function ClassName(){//ClassName类
+					var variantName = null,//私有变量variantName
+					domDOMName = null,//私有DOM对象domDOMName
+					CONSTANT_NAME = null,//常量CONSTANT_NAME
+					oClassName = function(){//Javascript对象oClassName
+						this.attributeName = CONSTANT_NAME;//属性attributeName
+						this.funcName = function(){};//构造函数funcName
+					};
+					return oClassName;
+				}
+				ClassName.prototype = {
+					_privateFuncName : function(){},//私有方法,不对外接口,但外部依然能够访问,标识为私有是为方便开发使用
+					publicFuncName : function(){}//公用方法,用以对外提供接口
+				};
+				function funcName(){}//函数funcName
+
+		Javascript使用规范
+
+			注意:
+				可以用css实现的请不要用js实现,css和js两套不同的渲染引擎会增加不必要的页面构建开销
+
+			注意:
+				非JSP接收数据,类及类的实例以外不允许使用全局变量。
+
+			注意:
+				单个方法不许超过20行。
+
+			注意:
+				变量只能先声明才能使用,而方法可以在后部声明。
+
+			注意:
+				变量使用前请初始化,否则可能出现类型错误。
+
+			注意:
+				所有赋值操作的右舷、返回操作符、方法和函数操作必须以分号结束。
+
+			如:
+				function funcName(){}
+				funcName();//方法操作
+				var funcName = function(){
+					var variantName = null;//赋值操作右舷
+					return function(){
+						return {
+							funcName : function(){
+								this.funcName();//函数操作
+								this.funcName = function(){};//函数操作、赋值操作右舷
+							}
+						};//返回操作符
+					};//返回操作符
+				};//赋值操作右舷
+
+			注意:
+				单行if判断不允许省略大括号。
+
+			注意:
+				原生Javascript方法不能重载,部分框架方法可以重载。
+
+			注意:
+				判断标准只允许根据产品需求和后端数据进行判断，决不允许调用页面内信息作为判断标准,字数截取除外。
+
+			注意:
+				插件请在页面基本元素加载完之后动态加载，而不要让它成为页面完成加载前就引入。
+
+			如:
+				function loadScript(url, callback){
+					var script = document.createElement("script");
+					if(script.readystate){
+						if(script.readystate === "loaded" || script.readystate === "complete"){
+							script.onreadystatechange = null;
+							callback();
+						}
+					}else{
+						script.onload = function(){
+							callback();
+						};
+					}
+					script.src = url;
+					document.documentElement.appendChild(script);
+				}
+				
+			注意:
+				setInterval和setTimeout请在使用完毕的时候立即清除计时器,被用完的对象请delete或者将其赋值为null把不必要的垃圾清理掉。
+
+			注意:
+				如果需要兼容IE8及以下的浏览器,数据等的聚合请用数组聚合,IE8以上的现代浏览器请用字符串拼接。
+-->
+
+<!--
+	<!DOCTYPE>:手机端文档类型用HTML5文档类型,全大写是因为这是DocumentType的缩写。
+-->
+<!DOCTYPE>
+
+<!--
+	<html>:document.documentElement
+-->
+<html>
+
+	<!--
+		<head>:document.head
+	-->
+	<head>
+
+		<!-- start 移动端ONLY -->
+
+		<!--
+			<meta />:元信息标签,浏览器报头识别,不参与标签样式作用。
+			表达式1:
+				<meta name="object" content="attribute1=value1, attribute2=value2" />
+			释义:
+				name="object":标签固定属性(name)="值(自定义对象)",
+				content="attribute1=value1, attribute2=value2":标签固定属性(content)="值(根据name属性的值,为name所指定的object对象规定其属性和值,值对间用英文逗号隔开,每个值对间加一个空格)"。
+			如:
+				<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+				通过name设定报头viewport(视窗)对象,此viewport对象拥有通过content设定的属性(initial-scale初始缩放比, minimum-scale最小缩放比, maximum-scale最大缩放比, user-scalable是否允许用户视窗缩放操作),前三个属性接受的属性类型为浮点型，最后一个接受的属性类型为string的特定值yes或no。
+			表达式2:
+				<meta attribute="value" />
+			释义:
+				标签固定属性(http-equiv, charset, accesskey等)="值(属性接受的属性类型的值或特定的值)"
+			如:
+				<meta charset="utf-8" />
+				通过meta标签固定属性charset设定charset属性接受的string属性类型的值"utf-8"。
+		-->
+
+		<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta charset="utf-8" />
+
+		<!-- end 移动端ONLY -->
+
+		<!-- start PC端ONLY -->
+
+		<!--
+			表达式3:
+				<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+			释义:
+				http-equiv="Content-type":标签固定属性(http-equiv)="值(标签默认项对象Content-type)",
+				content="text/html; charset=utf-8":标签固定属性(content)="值(根据标签默认项http-equiv属性的值,为http-equiv所指定的object对象规定其文档配置方式和字符集)"
+		-->
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+
+		<!-- end PC端ONLY -->
+
+		<!--
+			<title>:展示在浏览器抬头的标题
+		-->
+		<title>title</title>
+
+	</head>
+
+	<!--
+		<link />:外联标签
+		表达式:
+			<link rel="type" href="path" />
+		释义:
+			rel="type":与页面关系="类型",
+			href="path":超文本引用="引用路径"。
+		如:
+			<link rel="stylesheet" href="style.css" />
+			与页面关系为其stylesheet(样式表)的外联标签link,其引用路径为style.css
+		
+	-->
+
+	<link rel="stylesheet" href="style.css" />
+
+	<!--
+		<body>:document.body
+	-->
+	<body>
+		
+	</body>
+
+	<!--document.scripts-->
+	<script></script>
+</html>
